@@ -2,24 +2,15 @@
 local activity = ngx.shared.activity
 local openidc  = require "resty.openidc"
 
---- Load environment variables
-local analytical_platform_tool = os.getenv("ANALYTICAL_PLATFORM_TOOL")
-local auth0_client_id          = os.getenv("AUTH0_CLIENT_ID")
-local auth0_client_secret      = os.getenv("AUTH0_CLIENT_SECRET")
-local auth0_tenant_domain      = os.getenv("AUTH0_TENANT_DOMAIN")
-local logout_url               = os.getenv("LOGOUT_URL")
-local redirect_domain          = os.getenv("REDIRECT_DOMAIN")
-local username                 = os.getenv("USERNAME")
-
 --- Construct URLs
-local discovery_url             = "https://" .. auth0_tenant_domain .. "/.well-known/openid-configuration"
-local redirect_after_logout_uri = "https://" .. auth0_tenant_domain .. "/v2/logout?client_id=" .. auth0_client_id .. "&redirectTo=" .. logout_url
-local redirect_uri              = "https://" .. username .. "-" .. analytical_platform_tool .. "." .. redirect_domain .. "/callback"
+local discovery_url             = "https://" .. ngx.var.auth0_tenant_domain .. "/.well-known/openid-configuration"
+local redirect_after_logout_uri = "https://" .. ngx.var.auth0_tenant_domain .. "/v2/logout?client_id=" .. ngx.var.auth0_client_id .. "&redirectTo=" .. ngx.var.logout_url
+local redirect_uri              = "https://" .. ngx.var.username .. "-" .. ngx.var.analytical_platform_tool .. "." .. ngx.var.redirect_domain .. "/callback"
 
 --- Construct the options for the openidc.authenticate function
 local opts = {
-  client_id                                = auth0_client_id,
-  client_secret                            = auth0_client_secret,
+  client_id                                = ngx.var.auth0_client_id,
+  client_secret                            = ngx.var.auth0_client_secret,
   discovery                                = discovery_url,
   redirect_uri                             = redirect_uri,
   redirect_after_logout_uri                = redirect_after_logout_uri,
@@ -52,7 +43,7 @@ if res then
   end
 
   --- If the user is not the correct user, return a 403 status code
-  if id_token_nickname ~= username then
+  if id_token_nickname ~= ngx.var.username then
     ngx.status = 403
     ngx.say("User forbidden for this application. Please contact the Analytical Platform team.")
     ngx.log(ngx.ERR, "User" .. id_token_nickname .. " is forbidden for this application.")
