@@ -4,6 +4,9 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/ministryofjustice/analytical-platform-cloud-development-environment-nginx-proxy)
 
+> [!WARNING]
+> This image is **experimental** and not ready to be used in production!
+
 This repository contains the NGINX proxy container image for use on the Analytical Platform.
 
 ## Running Locally
