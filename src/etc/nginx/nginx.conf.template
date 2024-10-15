@@ -203,13 +203,13 @@ http {
     # Root
     # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L112
     location / {
-      set_by_lua $analytical_platform_tool 'return "${ANALYTICAL_PLATFORM_TOOL}" ';
-      set_by_lua $auth0_client_id          'return "${AUTH0_CLIENT_ID}" ';
-      set_by_lua $auth0_client_secret      'return "${AUTH0_CLIENT_SECRET}" ';
-      set_by_lua $auth0_tenant_domain      'return "${AUTH0_TENANT_DOMAIN}" ';
-      set_by_lua $logout_url               'return "${LOGOUT_URL}" ';
-      set_by_lua $redirect_domain          'return "${REDIRECT_DOMAIN}" ';
-      set_by_lua $username                 'return "${USERNAME}" ';
+      set_by_lua $analytical_platform_tool 'return "ANALYTICAL_PLATFORM_TOOL" ';
+      set_by_lua $auth0_client_id          'return "AUTH0_CLIENT_ID" ';
+      set_by_lua $auth0_client_secret      'return "AUTH0_CLIENT_SECRET" ';
+      set_by_lua $auth0_tenant_domain      'return "AUTH0_TENANT_DOMAIN" ';
+      set_by_lua $logout_url               'return "LOGOUT_URL" ';
+      set_by_lua $redirect_domain          'return "REDIRECT_DOMAIN" ';
+      set_by_lua $username                 'return "USERNAME" ';
       access_by_lua_file /opt/lua-scripts/auth0-login.lua;
 
       # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L124-L130
