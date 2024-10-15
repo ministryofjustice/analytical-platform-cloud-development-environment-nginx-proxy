@@ -15,6 +15,22 @@ fileExistenceTests:
     path: "/etc/nginx/nginx.conf.template"
     shouldExist: true
 
+  - name: "/opt/lua-scripts/auth0-login.lua"
+    path: "/opt/lua-scripts/auth0-login.lua"
+    shouldExist: true
+
+  - name: "/opt/lua-scripts/last-seen.lua"
+    path: "/opt/lua-scripts/last-seen.lua"
+    shouldExist: true
+
+  - name: "/opt/lua-scripts/nginx-health.lua"
+    path: "/opt/lua-scripts/nginx-health.lua"
+    shouldExist: true
+
+  - name: "/srv/www/404.html"
+    path: "/srv/www/404.html"
+    shouldExist: true
+
   - name: "/usr/local/bin/entrypoint.sh"
     path: "/usr/local/bin/entrypoint.sh"
     shouldExist: true
