@@ -1,1 +1,5 @@
+# This file is generated automatically
 .devcontainer/devcontainer-lock.json
+
+# This file is out of scope right now
+src/srv/www/404.html
