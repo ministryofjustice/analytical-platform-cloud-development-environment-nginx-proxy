@@ -1,3 +1,5 @@
+#checkov:skip=CKV_DOCKER_3: Current implementation uses off-the-shelf image from OpenResty which doesn't offer a nonroot variant
+
 # docker.io/openresty/openresty:1.25.3.2-alpine-fat
 FROM docker.io/openresty/openresty@sha256:aa8ea52fa35a296558aed8b392fb39d575e39dd4a7717fa44f1fd6fc09c1185d
 
