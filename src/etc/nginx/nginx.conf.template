@@ -1,0 +1,234 @@
+# https://nginx.org/en/docs/ngx_core_module.html#daemon
+# Default is on
+# Setting as generally passed a command line argument
+daemon off;
+
+# https://nginx.org/en/docs/ngx_core_module.html#worker_processes
+# Default value, setting explicitly
+worker_processes 1;
+
+# https://nginx.org/en/docs/ngx_core_module.html#pcre_jit
+# Default is off
+# Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L23
+pcre_jit on;
+
+events {
+  # https://nginx.org/en/docs/ngx_core_module.html#worker_connections
+  # Default is 512
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L35
+  # TODO: This is set to 128 in Analytical Platform (https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L16) - does it need to be?
+  worker_connections 1024;
+}
+
+http {
+  # https://nginx.org/en/docs/ngx_core_module.html#include
+  # No default value
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L40
+  # TODO: Commenting out as it cannot be found when testing config
+  # include mime.types;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#default_type
+  # Default is text/plain
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L41
+  default_type application/octet-stream;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_temp_path
+  # Default is ?
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L72
+  client_body_temp_path /var/run/openresty/nginx-client-body;
+
+  # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_temp_path
+  # Default is ?
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L73
+  proxy_temp_path /var/run/openresty/nginx-proxy;
+
+  # https://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_temp_path
+  # Default is ?
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L74
+  fastcgi_temp_path /var/run/openresty/nginx-fastcgi;
+
+  # https://nginx.org/en/docs/http/ngx_http_uwsgi_module.html#uwsgi_temp_path
+  # Default is ?
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L75
+  uwsgi_temp_path /var/run/openresty/nginx-uwsgi;
+
+  # https://nginx.org/en/docs/http/ngx_http_scgi_module.html#scgi_temp_path
+  # Default is ?
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L76
+  scgi_temp_path /var/run/openresty/nginx-scgi;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#sendfile
+  # Default is off
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L78
+  sendfile on;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout
+  # Default is 75s
+  # Setting as per OpenResty: https://github.com/openresty/docker-openresty/blob/master/nginx.conf#L82
+  keepalive_timeout 65;
+
+  #################################################
+  # Analytical Platform NGINX Proxy Configuration #
+  #################################################
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#server_tokens
+  # Default is on
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L42
+  server_tokens off;
+
+  # https://github.com/openresty/lua-nginx-module?tab=readme-ov-file#lua_package_path
+  # Default is content of LUA_PATH environment variable (https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat#L62)
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L21
+  # TODO: Check if this is required
+  # lua_package_path '~/lua/?.lua;;';
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver
+  # No default value
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L23
+  # TODO: is this necessary?
+  resolver 8.8.8.8 ipv6=off;
+
+  # https://github.com/openresty/lua-nginx-module?tab=readme-ov-file#lua_ssl_trusted_certificate
+  # No default value
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L25
+  # TODO: Check if this is required
+  lua_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+
+  # https://github.com/openresty/lua-nginx-module?tab=readme-ov-file#lua_ssl_verify_depth
+  # Default is 1
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L26
+  # TODO: Check if this is required
+  lua_ssl_verify_depth 5;
+
+  # https://github.com/openresty/lua-nginx-module?tab=readme-ov-file#lua_shared_dict
+  # No default value
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L29C3-L35
+  lua_shared_dict activity  256k; # cache for activity data for pod idler
+  lua_shared_dict discovery 1m;   # cache for discovery metadata documents
+  lua_shared_dict jwks      1m;   # cache for JWKs
+
+  # https://nginx.org/en/docs/http/ngx_http_map_module.html
+  # No default value
+  # https://nginx.org/en/docs/http/websocket.html
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L37-L39
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+  }
+
+  # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffering
+  # Default is on
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L46
+  proxy_buffering on;
+
+  # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size
+  # Default is 4k|8k (depending on platform)
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L47
+  proxy_buffer_size 32k;
+
+  # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffers
+  # Default is 8 4k|8k (depending on platform)
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L48
+  proxy_buffers 4 32k;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size
+  # Default is 8k|16k (depending on platform)
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L49
+  client_body_buffer_size 32k;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#client_header_buffer_size
+  # Default is 1k
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L50
+  client_header_buffer_size 8k;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#large_client_header_buffers
+  # Default is 4 8k
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L51
+  large_client_header_buffers 8 64k;
+
+  # https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
+  # Default is 1m
+  # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L54
+  client_max_body_size 50M;
+
+  # The server configuration for /userinfo has been omitted as it is only reference for the now retired Analytical Platform Apps service
+  # https://user-guidance.analytical-platform.service.justice.gov.uk/apps/rshiny-app.html#finding-current-users-39-user-profiles
+  # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L56-L69
+
+  server {
+    # https://nginx.org/en/docs/http/ngx_http_core_module.html#listen
+    # Default is *:80
+    # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L72
+    listen PROXY_LISTEN_ADDRESS:PROXY_LISTEN_PORT default_server;
+
+    # https://nginx.org/en/docs/ngx_core_module.html#error_log
+    # Default is logs/error.log error;
+    # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L74
+    # TODO: surely this should be set to error? also it should stream to stdout
+    # error_log /var/log/nginx/error.log ERROR_LOG_LEVEL;
+
+    # EXPERIMENTAL: https://nginx.org/en/docs/http/ngx_http_core_module.html#access_log
+    access_log /dev/stdout combined;
+    error_log  /dev/stdout ERROR_LOG_LEVEL;
+
+    # NGINX health check
+    # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L77
+    location /nginx-health {
+      content_by_lua_file /opt/lua-scripts/nginx-health.lua;
+    }
+
+    # Custom 404 page
+    # https://nginx.org/en/docs/http/ngx_http_core_module.html#error_page
+    # No default value
+    # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L95
+    # TODO: is this necessary?
+    error_page 404 /404.html;
+    location = /404.html {
+      # https://nginx.org/en/docs/http/ngx_http_core_module.html#root
+      # Default is html
+      # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L97
+      root /srv/www;
+      # https://nginx.org/en/docs/http/ngx_http_core_module.html#internal
+      # No default value
+      # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L98
+      internal;
+    }
+
+    # Last seen
+    # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L102
+    location /last-seen {
+      content_by_lua_file /opt/lua-scripts/last-seen.lua;
+    }
+
+    # Root
+    # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L112
+    location / {
+      access_by_lua_file /opt/lua-scripts/auth0-login.lua;
+
+      # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L124-L130
+      # TODO: maybe move individual tool configurations to snippets and use https://nginx.org/en/docs/ngx_core_module.html#include directive
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+      # No default value
+      proxy_pass http://UPSTREAM_HOST:UPSTREAM_PORT;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect
+      # Default is default
+      proxy_redirect http://UPSTREAM_HOST:UPSTREAM_PORT/ $scheme://$http_host/;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_http_version
+      # Default is 1.0
+      proxy_http_version 1.1;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+      # Default is "Host $proxy_host" and "Connection close"
+      proxy_set_header Connection $connection_upgrade;
+      proxy_set_header Host       $host;
+      proxy_set_header Upgrade    $http_upgrade;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_read_timeout
+      # Default is 60s
+      proxy_read_timeout 20d;
+    }
+  }
+}

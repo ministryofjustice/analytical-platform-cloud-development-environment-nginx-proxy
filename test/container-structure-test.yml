@@ -1,0 +1,24 @@
+---
+schemaVersion: 2.0.0
+
+containerRunOptions:
+  user: "root"
+
+commandTests:
+  - name: "nginx"
+    command: "nginx"
+    args: ["-v"]
+    expectedError: ["nginx version: openresty/1.25.3.2"]
+
+fileExistenceTests:
+  - name: "/etc/nginx/nginx.conf.template"
+    path: "/etc/nginx/nginx.conf.template"
+    shouldExist: true
+
+  - name: "/usr/local/bin/entrypoint.sh"
+    path: "/usr/local/bin/entrypoint.sh"
+    shouldExist: true
+
+  - name: "/usr/local/bin/healthcheck.sh"
+    path: "/usr/local/bin/healthcheck.sh"
+    shouldExist: true
