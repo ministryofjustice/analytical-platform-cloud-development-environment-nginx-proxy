@@ -10,7 +10,7 @@ export UPSTREAM_HOST="${UPSTREAM_HOST:-localhost}"
 export UPSTREAM_PORT="${UPSTREAM_PORT:-8080}"
 
 # Auth0
-export ANALYTICAL_PLATFORM_TOOL_ID="${ANALYTICAL_PLATFORM_TOOL_ID:-vscode}"
+export ANALYTICAL_PLATFORM_TOOL="${ANALYTICAL_PLATFORM_TOOL:-vscode}"
 export AUTH0_CLIENT_ID="${AUTH0_CLIENT_ID:-notarealclientid}"
 export AUTH0_CLIENT_SECRET="${AUTH0_CLIENT_SECRET:-notarealclientsecret}"
 export AUTH0_TENANT_DOMAIN="${AUTH0_TENANT_DOMAIN:-notarealauth0domain.auth0.com}"
@@ -33,7 +33,7 @@ sed -i "s/UPSTREAM_HOST/${UPSTREAM_HOST}/g" /etc/nginx/nginx.conf
 sed -i "s/UPSTREAM_PORT/${UPSTREAM_PORT}/g" /etc/nginx/nginx.conf
 
 echo "Replacing Auth0 settings placeholders in NGINX configuration"
-sed -i "s/ANALYTICAL_PLATFORM_TOOL_ID/${ANALYTICAL_PLATFORM_TOOL_ID}/g" /etc/nginx/nginx.conf
+sed -i "s/ANALYTICAL_PLATFORM_TOOL/${ANALYTICAL_PLATFORM_TOOL}/g" /etc/nginx/nginx.conf
 sed -i "s/AUTH0_CLIENT_ID/${AUTH0_CLIENT_ID}/g" /etc/nginx/nginx.conf
 sed -i "s/AUTH0_CLIENT_SECRET/${AUTH0_CLIENT_SECRET}/g" /etc/nginx/nginx.conf
 sed -i "s/AUTH0_TENANT_DOMAIN/${AUTH0_TENANT_DOMAIN}/g" /etc/nginx/nginx.conf
