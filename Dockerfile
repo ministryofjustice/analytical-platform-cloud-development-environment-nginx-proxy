@@ -1,7 +1,7 @@
 #checkov:skip=CKV_DOCKER_3: Current implementation uses off-the-shelf image from OpenResty which doesn't offer a nonroot variant
 
 # docker.io/openresty/openresty:1.25.3.2-alpine-fat
-FROM docker.io/openresty/openresty@sha256:aa8ea52fa35a296558aed8b392fb39d575e39dd4a7717fa44f1fd6fc09c1185d
+FROM docker.io/openresty/openresty@sha256:aa113b8092b925251c23f4bd3e8f83e9180d304fffa6a057fe975138e63de420
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
