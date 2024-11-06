@@ -155,6 +155,7 @@ http {
   # https://user-guidance.analytical-platform.service.justice.gov.uk/apps/rshiny-app.html#finding-current-users-39-user-profiles
   # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L56-L69
 
+  # IDE
   server {
     # https://nginx.org/en/docs/http/ngx_http_core_module.html#listen
     # Default is *:80
@@ -203,13 +204,13 @@ http {
     # Root
     # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L112
     location / {
-      set_by_lua $analytical_platform_tool 'return "ANALYTICAL_PLATFORM_TOOL" ';
-      set_by_lua $auth0_client_id          'return "AUTH0_CLIENT_ID" ';
-      set_by_lua $auth0_client_secret      'return "AUTH0_CLIENT_SECRET" ';
-      set_by_lua $auth0_tenant_domain      'return "AUTH0_TENANT_DOMAIN" ';
-      set_by_lua $logout_url               'return "LOGOUT_URL" ';
-      set_by_lua $redirect_domain          'return "REDIRECT_DOMAIN" ';
-      set_by_lua $username                 'return "USERNAME" ';
+      set_by_lua $analytical_platform_tool 'return "ANALYTICAL_PLATFORM_TOOL"';
+      set_by_lua $auth0_client_id          'return "AUTH0_CLIENT_ID"';
+      set_by_lua $auth0_client_secret      'return "AUTH0_CLIENT_SECRET"';
+      set_by_lua $auth0_tenant_domain      'return "AUTH0_TENANT_DOMAIN"';
+      set_by_lua $logout_url               'return "LOGOUT_URL"';
+      set_by_lua $redirect_domain          'return "REDIRECT_DOMAIN"';
+      set_by_lua $username                 'return "USERNAME"';
       access_by_lua_file /opt/lua-scripts/auth0-login.lua;
 
       # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L124-L130
@@ -222,6 +223,64 @@ http {
       # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect
       # Default is default
       proxy_redirect http://UPSTREAM_HOST:UPSTREAM_PORT/ $scheme://$http_host/;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_http_version
+      # Default is 1.0
+      proxy_http_version 1.1;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+      # Default is "Host $proxy_host" and "Connection close"
+      proxy_set_header Connection      $connection_upgrade;
+      proxy_set_header Host            $host;
+      proxy_set_header Upgrade         $http_upgrade;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Real-IP       $remote_addr;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_read_timeout
+      # Default is 60s
+      proxy_read_timeout 20d;
+    }
+  }
+
+  # Tunnel
+  server {
+    # https://nginx.org/en/docs/http/ngx_http_core_module.html#listen
+    # Default is *:80
+    # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L72
+    listen PROXY_TUNNEL_LISTEN_ADDRESS:PROXY_TUNNEL_LISTEN_PORT;
+
+    # https://nginx.org/en/docs/ngx_core_module.html#error_log
+    # Default is logs/error.log error;
+    # Setting as per Analytical Platform: https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L74
+    # TODO: surely this should be set to error? also it should stream to stdout
+    # error_log /var/log/nginx/error.log ERROR_LOG_LEVEL;
+
+    # EXPERIMENTAL: https://nginx.org/en/docs/http/ngx_http_core_module.html#access_log
+    access_log /dev/stdout combined;
+    error_log  /dev/stdout ERROR_LOG_LEVEL;
+
+    # Root
+    # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L112
+    location / {
+      set_by_lua $analytical_platform_tool 'return "ANALYTICAL_PLATFORM_TOOL-tunnel"';
+      set_by_lua $auth0_client_id          'return "AUTH0_CLIENT_ID"';
+      set_by_lua $auth0_client_secret      'return "AUTH0_CLIENT_SECRET"';
+      set_by_lua $auth0_tenant_domain      'return "AUTH0_TENANT_DOMAIN"';
+      set_by_lua $logout_url               'return "LOGOUT_URL"';
+      set_by_lua $redirect_domain          'return "REDIRECT_DOMAIN"';
+      set_by_lua $username                 'return "USERNAME"';
+      access_by_lua_file /opt/lua-scripts/auth0-login.lua;
+
+      # https://github.com/ministryofjustice/analytical-platform-nginx-proxy/blob/main/nginx-proxy/nginx.conf.template#L124-L130
+      # TODO: maybe move individual tool configurations to snippets and use https://nginx.org/en/docs/ngx_core_module.html#include directive
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+      # No default value
+      proxy_pass http://UPSTREAM_HOST:UPSTREAM_TUNNEL_PORT;
+
+      # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect
+      # Default is default
+      proxy_redirect http://UPSTREAM_HOST:UPSTREAM_TUNNEL_PORT/ $scheme://$http_host/;
 
       # https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_http_version
       # Default is 1.0

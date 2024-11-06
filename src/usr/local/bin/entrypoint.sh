@@ -8,6 +8,7 @@ export PROXY_LISTEN_ADDRESS="${PROXY_LISTEN_ADDRESS:-"*"}"
 export PROXY_LISTEN_PORT="${PROXY_LISTEN_PORT:-3000}"
 export UPSTREAM_HOST="${UPSTREAM_HOST:-localhost}"
 export UPSTREAM_PORT="${UPSTREAM_PORT:-8080}"
+export UPSTREAM_TUNNEL_PORT="${UPSTREAM_TUNNEL_PORT:-8050}"
 
 # Auth0
 export ANALYTICAL_PLATFORM_TOOL="${ANALYTICAL_PLATFORM_TOOL:-vscode}"
@@ -31,6 +32,7 @@ sed -i "s/PROXY_LISTEN_ADDRESS/${PROXY_LISTEN_ADDRESS}/g" /etc/nginx/nginx.conf
 sed -i "s/PROXY_LISTEN_PORT/${PROXY_LISTEN_PORT}/g" /etc/nginx/nginx.conf
 sed -i "s/UPSTREAM_HOST/${UPSTREAM_HOST}/g" /etc/nginx/nginx.conf
 sed -i "s/UPSTREAM_PORT/${UPSTREAM_PORT}/g" /etc/nginx/nginx.conf
+sed -i "s/UPSTREAM_TUNNEL_PORT/${UPSTREAM_TUNNEL_PORT}/g" /etc/nginx/nginx.conf
 
 echo "Replacing Auth0 settings placeholders in NGINX configuration"
 sed -i "s/ANALYTICAL_PLATFORM_TOOL/${ANALYTICAL_PLATFORM_TOOL}/g" /etc/nginx/nginx.conf
