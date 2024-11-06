@@ -21,9 +21,11 @@ export LOGOUT_URL="${LOGOUT_URL:-"https://google.com"}"
 export REDIRECT_DOMAIN="${REDIRECT_DOMAIN:-"http://localhost:3000"}"
 export USERNAME="${USERNAME:-analyticalplatform}"
 
-echo "Error log level: ${ERROR_LOG_LEVEL}"
-echo "Proxy address: ${PROXY_LISTEN_ADDRESS}:${PROXY_LISTEN_PORT}"
-echo "Proxy Upstream: ${UPSTREAM_HOST}:${UPSTREAM_PORT}"
+echo "Error log level:       ${ERROR_LOG_LEVEL}"
+echo "IDE proxy address:     ${PROXY_LISTEN_ADDRESS}:${PROXY_LISTEN_PORT}"
+echo "IDE proxy upstream:    ${UPSTREAM_HOST}:${UPSTREAM_PORT}"
+echo "Tunnel proxy address:  ${PROXY_TUNNEL_LISTEN_ADDRESS}:${PROXY_TUNNEL_LISTEN_PORT}"
+echo "Tunnel proxy upstream: ${UPSTREAM_HOST}:${UPSTREAM_TUNNEL_PORT}"
 
 echo "Createing NGINX configuration from template"
 cp /etc/nginx/nginx.conf.template /etc/nginx/nginx.conf
