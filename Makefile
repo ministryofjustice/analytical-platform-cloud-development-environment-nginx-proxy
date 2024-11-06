@@ -1,10 +1,13 @@
-.PHONY: build scan test run
+.PHONY: build debug scan test run
 
 IMAGE_NAME ?= ghcr.io/ministryofjustice/analytical-platform-cloud-development-environment-nginx-proxy
 IMAGE_TAG  ?= local
 
 TRIVY_DB_REPOSITORY ?= public.ecr.aws/aquasecurity/trivy-db:2
 TRIVY_JAVA_DB_REPOSITORY ?= public.ecr.aws/aquasecurity/trivy-java-db:1
+
+debug: build
+	docker run --rm -it --publish 3000:3000 --entrypoint /bin/sh $(IMAGE_NAME):$(IMAGE_TAG)
 
 run: build
 	docker run --rm -it --publish 3000:3000 $(IMAGE_NAME):$(IMAGE_TAG)
