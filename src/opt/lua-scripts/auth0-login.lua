@@ -25,7 +25,7 @@ local opts = {
     cookie = {
       persistent = true
     }
-  }
+  },
 
   renew_access_token_on_expiry = true
 }
