@@ -9,7 +9,7 @@ local redirect_uri              = "https://" .. ngx.var.username .. "-" .. ngx.v
 
 --- Construct the options for the openidc.authenticate function
 local opts = {
-  access_token_expires_in                  = 28800
+  access_token_expires_in                  = 28800,
   client_id                                = ngx.var.auth0_client_id,
   client_secret                            = ngx.var.auth0_client_secret,
   discovery                                = discovery_url,
