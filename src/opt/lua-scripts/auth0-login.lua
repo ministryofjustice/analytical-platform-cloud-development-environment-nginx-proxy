@@ -15,6 +15,7 @@ local opts = {
   redirect_uri                             = redirect_uri,
   redirect_after_logout_uri                = redirect_after_logout_uri,
   redirect_after_logout_with_id_token_hint = false,
+  refresh_session_interval                 = 28800,
   token_signing_alg_values_expected        = "HS256"
 }
 
