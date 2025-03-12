@@ -9,29 +9,28 @@ local redirect_uri              = "https://" .. ngx.var.username .. "-" .. ngx.v
 
 --- Construct the options for the openidc.authenticate function
 local opts = {
-  access_token_expires_in                  = 36000,
   client_id                                = ngx.var.auth0_client_id,
   client_secret                            = ngx.var.auth0_client_secret,
   discovery                                = discovery_url,
   redirect_uri                             = redirect_uri,
   redirect_after_logout_uri                = redirect_after_logout_uri,
   redirect_after_logout_with_id_token_hint = false,
-  refresh_session_interval                 = 3600,
+  refresh_session_interval                 = 36000,
   token_signing_alg_values_expected        = "HS256",
+}
 
-  session_opts = {
-    lifetime = 36000,
-    rolling = true,
-    cookie = {
-      persistent = true
-    }
-  },
-
-  renew_access_token_on_expiry = true
+local session_opts = {
+  secret           = ngx.var.username,
+  cookie_name      = "session",
+  cookie_prefix    = "__Host-",
+  cookie_http_only = true,
+  cookie_secure    = true,
+  cookie_same_site = "Lax",
+  remember         = true,
 }
 
 --- Authenticate the user
-local res, err = openidc.authenticate(opts)
+local res, err = openidc.authenticate(opts, nil, nil, session_opts)
 
 --- If error occurs, log the error and return a 500 status code
 if err then
