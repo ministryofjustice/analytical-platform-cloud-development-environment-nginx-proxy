@@ -15,7 +15,7 @@ local opts = {
   redirect_uri                             = redirect_uri,
   redirect_after_logout_uri                = redirect_after_logout_uri,
   redirect_after_logout_with_id_token_hint = false,
-  token_signing_alg_values_expected        = "HS256",
+  token_signing_alg_values_expected        = "HS256"
 }
 
 local session_opts = {
