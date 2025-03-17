@@ -20,13 +20,8 @@ local opts = {
 }
 
 local session_opts = {
-  secret           = ngx.var.username,
-  cookie_name      = "session",
-  cookie_prefix    = "__Host-",
-  cookie_http_only = true,
-  cookie_secure    = true,
-  cookie_same_site = "Lax",
-  remember         = true,
+  idling_timeout  = 0,
+  rolling_timeout = 0
 }
 
 --- Authenticate the user
