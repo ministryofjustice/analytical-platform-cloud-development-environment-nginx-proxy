@@ -304,7 +304,9 @@ http {
   server {
     listen PROXY_USERINFO_LISTEN_ADDRESS:PROXY_USERINFO_LISTEN_PORT;
 
-    error_log /var/log/nginx/error.log ERROR_LOG_LEVEL;
+    # EXPERIMENTAL: https://nginx.org/en/docs/http/ngx_http_core_module.html#access_log
+    access_log /dev/stdout combined;
+    error_log  /dev/stdout ERROR_LOG_LEVEL;
 
     location /userinfo {
 
