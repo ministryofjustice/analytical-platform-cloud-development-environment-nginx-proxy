@@ -27,7 +27,7 @@ echo "IDE proxy upstream:    ${UPSTREAM_HOST}:${UPSTREAM_PORT}"
 echo "Tunnel proxy address:  ${PROXY_TUNNEL_LISTEN_ADDRESS}:${PROXY_TUNNEL_LISTEN_PORT}"
 echo "Tunnel proxy upstream: ${UPSTREAM_HOST}:${UPSTREAM_TUNNEL_PORT}"
 
-echo "Createing NGINX configuration from template"
+echo "Creating NGINX configuration from template"
 cp /etc/nginx/nginx.conf.template /etc/nginx/nginx.conf
 
 echo "Replacing NGINX settings placeholders in NGINX configuration"
