@@ -18,8 +18,13 @@ local opts = {
   token_signing_alg_values_expected        = "HS256"
 }
 
+local session_opts = {
+  idling_timeout  = 0,
+  rolling_timeout = 0
+}
+
 --- Authenticate the user
-local res, err = openidc.authenticate(opts)
+local res, err = openidc.authenticate(opts, nil, nil, session_opts)
 
 --- If error occurs, log the error and return a 500 status code
 if err then
