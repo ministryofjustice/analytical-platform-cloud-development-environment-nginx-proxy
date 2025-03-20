@@ -299,4 +299,25 @@ http {
       proxy_read_timeout 20d;
     }
   }
+
+  # Userinfo
+  server {
+    listen PROXY_USERINFO_LISTEN_ADDRESS:PROXY_USERINFO_LISTEN_PORT;
+
+    # EXPERIMENTAL: https://nginx.org/en/docs/http/ngx_http_core_module.html#access_log
+    access_log /dev/stdout combined;
+    error_log  /dev/stdout ERROR_LOG_LEVEL;
+
+    location /userinfo {
+
+      set_by_lua $analytical_platform_tool 'return "ANALYTICAL_PLATFORM_TOOL"';
+      set_by_lua $auth0_client_id          'return "AUTH0_CLIENT_ID"';
+      set_by_lua $auth0_client_secret      'return "AUTH0_CLIENT_SECRET"';
+      set_by_lua $auth0_tenant_domain      'return "AUTH0_TENANT_DOMAIN"';
+      set_by_lua $username                 'return "USERNAME"';
+
+      content_by_lua_file /opt/lua-scripts/userinfo-api.lua;
+    }
+  }
+
 }
