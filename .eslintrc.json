@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": [".devcontainer/devcontainer-lock.json"],
+      "rules": {
+        "jsonc/no-dupe-keys": "off"
+      }
+    }
+  ]
+}
