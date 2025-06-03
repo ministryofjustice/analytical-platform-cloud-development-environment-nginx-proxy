@@ -8,7 +8,7 @@ commandTests:
   - name: "nginx"
     command: "nginx"
     args: ["-v"]
-    expectedError: ["nginx version: openresty/1.25.3.2"]
+    expectedError: ["nginx version: openresty/1.27.1.2"]
 
 fileExistenceTests:
   - name: "/etc/nginx/nginx.conf.template"
