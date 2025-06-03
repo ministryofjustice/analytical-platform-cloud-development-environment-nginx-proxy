@@ -1,7 +1,7 @@
 #checkov:skip=CKV_DOCKER_3: Current implementation uses off-the-shelf image from OpenResty which doesn't offer a nonroot variant
 
-# docker.io/openresty/openresty:1.25.3.2-3-alpine-fat
-FROM docker.io/openresty/openresty:1.25.3.2-3-alpine-fat@sha256:fd7320b66849fd5c576c8213710fa19a1fcb3a2d153ef24b84de37287b12b60a
+# docker.io/openresty/openresty:1.27.1.2-1-alpine-fat
+FROM docker.io/openresty/openresty:1.27.1.2-1-alpine-fat@sha256:a82c4d8bceb80cffd0bb427959f959c8a733bcbeedcfd3d3a7d82268c4518339
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,8 +9,11 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.description="Cloud Development Environment NGINX proxy image for Analytical Platform" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-nginx-proxy"
 
+ENV MOONROCK_MIRROR_COMMIT="daab2726276e3282dc347b89a42a5107c3500567" \
+    LUA_RESTY_OPENIDC_VERSION="1.8.0"
+
 RUN <<EOF
-luarocks install lua-resty-openidc 1.8.0
+luarocks install --only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}" lua-resty-openidc "${LUA_RESTY_OPENIDC_VERSION}"
 EOF
 
 COPY src/etc/nginx /etc/nginx

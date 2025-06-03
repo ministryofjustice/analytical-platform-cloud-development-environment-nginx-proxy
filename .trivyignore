@@ -2,17 +2,17 @@
 # We currently consume docker.io/openresty/openresty:1.25.3.2-alpine-fat but intend to refactor and switch to Ubuntu LTS for two reasons
 #  1. We can fully control the base image, so nonroot and package version
 #  2. OpenResty publish an APT distrobution we can use
-CVE-2024-5171
-CVE-2024-6197
-CVE-2024-8176
-CVE-2024-45490
-CVE-2024-45491
-CVE-2024-45492
-CVE-2024-55549
-CVE-2024-56171
-CVE-2025-0840
-CVE-2025-24855
-CVE-2025-24928
-CVE-2025-27113
-CVE-2024-56406
-CVE-2025-31115
+# CVE-2024-5171
+# CVE-2024-6197
+# CVE-2024-8176
+# CVE-2024-45490
+# CVE-2024-45491
+# CVE-2024-45492
+# CVE-2024-55549
+# CVE-2024-56171
+# CVE-2025-0840
+# CVE-2025-24855
+# CVE-2025-24928
+# CVE-2025-27113
+# CVE-2024-56406
+# CVE-2025-31115
