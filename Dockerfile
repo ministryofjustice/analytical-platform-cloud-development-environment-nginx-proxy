@@ -12,6 +12,9 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV MOONROCK_MIRROR_COMMIT="daab2726276e3282dc347b89a42a5107c3500567" \
     LUA_RESTY_OPENIDC_VERSION="1.8.0"
 
+# The installation of lua-resty-openidc is pinned to a specific commit of the moonrocks-mirror repository due to this issue https://github.com/luarocks/luarocks/issues/1797
+# See specific comment https://github.com/luarocks/luarocks/issues/1797#issuecomment-2930518193 for the fix below
+# At the time of next patch, test without `--only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}"` and see if it works
 RUN <<EOF
 luarocks install --only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}" lua-resty-openidc "${LUA_RESTY_OPENIDC_VERSION}"
 EOF
