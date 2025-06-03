@@ -44,4 +44,4 @@ docker image inspect --format='{{index .RepoDigests 0}}' docker.io/openresty/ope
 
 ### lua-resty-openidc
 
-https://luarocks.org/modules/hanszandbelt/lua-resty-openidc
+`lua-resty-openidc` versions are maintainer here <https://luarocks.org/modules/hanszandbelt/lua-resty-openidc>
