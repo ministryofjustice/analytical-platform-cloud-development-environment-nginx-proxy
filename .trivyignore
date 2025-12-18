@@ -1,1 +1,10 @@
 # As of 03/06/2025 there are no vulnerabilities to skip in docker.io/openresty/openresty:1.27.1.2-1-alpine-fat
+
+# alpine 3.21.3 - sha is set to latest so no fix
+CVE-2025-64720 exp:2026-03-17
+CVE-2025-65018 exp:2026-03-17
+CVE-2025-66293 exp:2026-03-17
+CVE-2025-49794 exp:2026-03-17
+CVE-2025-49796 exp:2026-03-17
+CVE-2025-49795 exp:2026-03-17
+CVE-2025-6021 exp:2026-03-17
