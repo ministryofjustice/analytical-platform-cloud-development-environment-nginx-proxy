@@ -37,9 +37,9 @@ Open a browser <http://localhost:3000>
 OpenResty maintain their CHANGELOG [here](https://github.com/openresty/docker-openresty/blob/master/CHANGELOG.md)
 
 ```bash
-docker pull --platform linux/amd64 docker.io/openresty/openresty:1.27.1.2-1-alpine-fat
+docker pull --platform linux/amd64 docker.io/openresty/openresty:1.31.1.1-1-alpine-fat
 
-docker image inspect --format='{{index .RepoDigests 0}}' docker.io/openresty/openresty:1.27.1.2-1-alpine-fat
+docker image inspect --format='{{index .RepoDigests 0}}' docker.io/openresty/openresty:1.31.1.1-1-alpine-fat
 ```
 
 ### lua-resty-openidc
