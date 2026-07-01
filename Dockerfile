@@ -1,7 +1,7 @@
 #checkov:skip=CKV_DOCKER_3: Current implementation uses off-the-shelf image from OpenResty which doesn't offer a nonroot variant
 
-# docker.io/openresty/openresty:1.31.1.1-1-alpine-fat
-FROM docker.io/openresty/openresty:1.29.2.4-0-alpine-fat@sha256:af355ebd6f01e580823b6718e8a2e39be3b45d9437fc92144e43ac72020f7461
+# docker.io/openresty/openresty:1.29.2.5-1-alpine-fat
+FROM docker.io/openresty/openresty:1.29.2.5-1-alpine-fat@sha256:6359d16c2cefedc216861e7092d486bb1ff19548abd1aa71e6dc094c82477aee
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -16,6 +16,7 @@ ENV MOONROCK_MIRROR_COMMIT="daab2726276e3282dc347b89a42a5107c3500567" \
 # See specific comment https://github.com/luarocks/luarocks/issues/1797#issuecomment-2930518193 for the fix below
 # At the time of next patch, test without `--only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}"` and see if it works
 RUN <<EOF
+apk upgrade --no-cache
 luarocks install --only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}" lua-resty-openidc "${LUA_RESTY_OPENIDC_VERSION}"
 EOF
 
