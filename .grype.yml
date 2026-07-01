@@ -1,0 +1,78 @@
+---
+# Grype configuration file for container vulnerability scanning
+# https://oss.anchore.com/docs/reference/grype/configuration/
+
+ignore:
+  # ============================================================================
+  # nginx CVEs (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
+  # Fixed in nginx 1.29.7 / 1.30.1+ / 1.30.3+ depending on CVE.
+  # No OpenResty alpine-fat image with a patched nginx on the 1.29.2.x track is available.
+  # ============================================================================
+
+  - vulnerability: CVE-2026-42945
+    # Fixed in nginx 1.30.1/1.31.0+, but no OpenResty alpine-fat image is available with a patched nginx on the 1.29.2.x track.
+    # Not exploitable: the vulnerability requires rewrite directives with unnamed PCRE captures, which are not used in this config.
+
+  - vulnerability: CVE-2026-42055
+    # Not exploitable: config uses proxy_http_version 1.1 only; grpc_pass is not configured.
+
+  - vulnerability: CVE-2026-42946
+    # Not exploitable: neither scgi_pass nor uwsgi_pass is configured.
+
+  - vulnerability: CVE-2026-27654
+    # Not exploitable: DAV module directives and alias are not used in this config.
+
+  - vulnerability: CVE-2026-27651
+    # Not exploitable: this is an HTTP proxy, not a mail server; the mail module is not used.
+
+  - vulnerability: CVE-2026-32647
+    # Not exploitable: the mp4 directive is not used in this config.
+
+  - vulnerability: CVE-2026-27784
+    # Not exploitable: mp4 directive is absent and this image runs 64-bit (linux/amd64).
+
+  - vulnerability: CVE-2026-1642
+    # Not exploitable: both proxy_pass directives use http:// (plain HTTP to internal upstream).
+
+  - vulnerability: CVE-2026-34182
+    # Not exploitable: nginx does not use OpenSSL CMS functions.
+
+  - vulnerability: CVE-2026-45447
+    # Not exploitable: nginx does not perform PKCS#7 signature verification.
+
+  - vulnerability: CVE-2026-42764
+    # Not exploitable: QUIC is not configured (no listen ... quic directives).
+
+  - vulnerability: CVE-2026-34183
+    # Not exploitable: QUIC is not configured.
+
+  - vulnerability: CVE-2026-34180
+    # Not exploitable: nginx TLS certificate and message data is orders of magnitude below 2GB.
+
+  - vulnerability: CVE-2026-7383
+    # Not exploitable: X.509 certificate processing in nginx does not exercise this code path.
+
+  - vulnerability: CVE-2026-45445
+    # Not exploitable: nginx uses OpenSSL only via the TLS stack.
+
+  - vulnerability: CVE-2026-9076
+    # Not exploitable: nginx does not use OpenSSL CMS password-based decryption.
+
+  - vulnerability: CVE-2026-34181
+    # Not exploitable: nginx does not process PKCS#12 files at runtime.
+
+  # ============================================================================
+  # Alpine package CVEs (libxml2, libexpat in OpenResty 1.29.2.5-1-alpine-fat base image)
+  # Fixed versions exist in Alpine repos but are not yet available in the base image layer.
+  # ============================================================================
+  - vulnerability: CVE-2026-6732
+    # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
+    # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  - vulnerability: CVE-2026-41080
+    # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.1-r0.
+    # Accepted: libexpat is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  - vulnerability: CVE-2026-45186
+    # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.1-r0.
+    # Accepted: libexpat is not directly invoked by nginx or lua-resty-openidc in this deployment.
