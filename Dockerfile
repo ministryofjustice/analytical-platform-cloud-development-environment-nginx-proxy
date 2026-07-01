@@ -16,7 +16,6 @@ ENV MOONROCK_MIRROR_COMMIT="daab2726276e3282dc347b89a42a5107c3500567" \
 # See specific comment https://github.com/luarocks/luarocks/issues/1797#issuecomment-2930518193 for the fix below
 # At the time of next patch, test without `--only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}"` and see if it works
 RUN <<EOF
-apk upgrade --no-cache
 luarocks install --only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}" lua-resty-openidc "${LUA_RESTY_OPENIDC_VERSION}"
 EOF
 
