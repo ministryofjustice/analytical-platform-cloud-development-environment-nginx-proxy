@@ -60,3 +60,20 @@ ignore:
 
   - vulnerability: CVE-2026-34181
     # Not exploitable: nginx does not process PKCS#12 files at runtime.
+
+  # ============================================================================
+  # Alpine package CVEs (libxml2, libexpat in OpenResty 1.29.2.5-1-alpine-fat base image)
+  # Fixed versions exist in Alpine repos but are not yet available in the base image layer.
+  # ============================================================================
+
+  - vulnerability: CVE-2026-6732
+    # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
+    # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  - vulnerability: CVE-2026-41080
+    # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.1-r0.
+    # Accepted: libexpat is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  - vulnerability: CVE-2026-45186
+    # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.1-r0.
+    # Accepted: libexpat is not directly invoked by nginx or lua-resty-openidc in this deployment.
