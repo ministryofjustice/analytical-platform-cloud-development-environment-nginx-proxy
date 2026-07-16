@@ -76,3 +76,14 @@ ignore:
   - vulnerability: CVE-2026-45186
     # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.1-r0.
     # Accepted: libexpat is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  # ============================================================================
+  # Alpine package CVEs (curl/libcurl in OpenResty 1.29.2.5-1-alpine-fat base image)
+  # Fixed versions exist in Alpine repos but are not yet available in the base image layer.
+  # ============================================================================
+  - vulnerability: CVE-2026-5773
+    # curl/libcurl 8.19.0-r0 in Alpine base image; fixed in 8.20.0-r0.
+    # Accepted: curl/libcurl is not directly invoked by nginx or lua-resty-openidc in this deployment.
+  - vulnerability: CVE-2026-6276
+    # curl/libcurl 8.19.0-r0 in Alpine base image; fixed in 8.20.0-r0.
+    # Accepted: curl/libcurl is not directly invoked by nginx or lua-resty-openidc in this deployment.
