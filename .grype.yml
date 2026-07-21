@@ -95,7 +95,6 @@ ignore:
   # 1.31.1, as of 2026-07-21). Tracked upstream:
   # https://github.com/openresty/openresty/issues/1136
   # ============================================================================
-
   - vulnerability: CVE-2026-42533
     # No fix available on any OpenResty release line. Fixed upstream in nginx
     # 1.30.4/1.31.3 (nginx.org/en/security_advisories.html).
