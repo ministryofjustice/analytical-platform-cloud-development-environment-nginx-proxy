@@ -87,3 +87,23 @@ ignore:
   - vulnerability: CVE-2026-6276
     # curl/libcurl 8.19.0-r0 in Alpine base image; fixed in 8.20.0-r0.
     # Accepted: curl/libcurl is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  # ============================================================================
+  # nginx core CVEs (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
+  # Fixed in nginx 1.30.4 / 1.31.3. No OpenResty release bundles a patched
+  # nginx core yet (current lines: 1.29.2.5 -> nginx 1.29.2, 1.31.1.1 -> nginx
+  # 1.31.1, as of 2026-07-21). Tracked upstream:
+  # https://github.com/openresty/openresty/issues/1136
+  # ============================================================================
+
+  - vulnerability: CVE-2026-42533
+    # No fix available on any OpenResty release line. Fixed upstream in nginx
+    # 1.30.4/1.31.3 (nginx.org/en/security_advisories.html).
+
+  - vulnerability: CVE-2026-60005
+    # No fix available on any OpenResty release line. Fixed upstream in nginx
+    # 1.30.4/1.31.3.
+
+  - vulnerability: CVE-2026-56434
+    # No fix available on any OpenResty release line. Fixed upstream in nginx
+    # 1.30.4/1.31.3.
