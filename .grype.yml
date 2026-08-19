@@ -106,3 +106,9 @@ ignore:
   - vulnerability: CVE-2026-56434
     # No fix available on any OpenResty release line. Fixed upstream in nginx
     # 1.30.4/1.31.3.
+
+  - vulnerability: CVE-2026-14456
+    # Low severity: unbounded memory growth in OpenSSL's QUIC *server* listener
+    # (pending-connection queue) when SSL_accept() isn't called fast enough.
+    # Fixed in OpenSSL 3.5.8, but that release has not shipped yet (advisory
+    # published 2026-08-13; https://openssl-library.org/news/secadv/20260813.txt)
