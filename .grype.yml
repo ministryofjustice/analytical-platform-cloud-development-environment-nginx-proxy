@@ -112,3 +112,27 @@ ignore:
     # (pending-connection queue) when SSL_accept() isn't called fast enough.
     # Fixed in OpenSSL 3.5.8, but that release has not shipped yet (advisory
     # published 2026-08-13; https://openssl-library.org/news/secadv/20260813.txt)
+
+  - vulnerability: CVE-2026-14457
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-18798
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-54874
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-63072
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-63075
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-63076
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
