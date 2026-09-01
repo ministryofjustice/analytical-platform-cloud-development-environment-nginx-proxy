@@ -136,3 +136,7 @@ ignore:
   - vulnerability: CVE-2026-63076
     # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
     # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
+
+  - vulnerability: CVE-2026-63073
+    # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+    # Fix not yet available on the OpenResty
