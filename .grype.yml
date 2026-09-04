@@ -152,3 +152,10 @@ ignore:
     # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.4-r0.
   - vulnerability: CVE-2026-75803
     # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+  # ============================================================================
+  # Alpine package CVEs (c-ares in OpenResty 1.29.2.5-1-alpine-fat base image)
+  # Fixed version exists in Alpine repos but may not yet be available in the
+  # base image layer's repo channel as of build time.
+  # ============================================================================
+  - vulnerability: CVE-2026-33630
+    # c-ares 1.20.0-r0 in Alpine base image; fixed in 1.20.1-r0.
