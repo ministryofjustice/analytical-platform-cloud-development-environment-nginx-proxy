@@ -12,6 +12,13 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV MOONROCK_MIRROR_COMMIT="daab2726276e3282dc347b89a42a5107c3500567" \
     LUA_RESTY_OPENIDC_VERSION="1.8.0"
 
+# Address upstream CVEs in the base image's apk packages ahead of the next OpenResty base bump:
+# curl/libcurl -> CVE-2026-9079, CVE-2026-10536, CVE-2026-11856, CVE-2026-8925, CVE-2026-8924,
+#                 CVE-2026-8927, CVE-2026-8926, CVE-2026-11564, CVE-2026-11352, CVE-2026-11586,
+#                 CVE-2026-9546, CVE-2026-12064, CVE-2026-8932, CVE-2026-9547, CVE-2026-8286,
+#                 CVE-2026-9080, CVE-2026-9545
+# libuuid       -> CVE-2026-76642, CVE-2026-78408, CVE-2026-78410
+RUN apk upgrade --no-cache 'curl>=8.22.0-r0' 'libcurl>=8.22.0-r0' 'libuuid>=2.41.6-r1'
 # The installation of lua-resty-openidc is pinned to a specific commit of the moonrocks-mirror repository due to this issue https://github.com/luarocks/luarocks/issues/1797
 # See specific comment https://github.com/luarocks/luarocks/issues/1797#issuecomment-2930518193 for the fix below
 # At the time of next patch, test without `--only-server "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/${MOONROCK_MIRROR_COMMIT}"` and see if it works
