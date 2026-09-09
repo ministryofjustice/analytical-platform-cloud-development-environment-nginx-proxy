@@ -165,4 +165,3 @@ ignore:
   - vulnerability: CVE-2026-78410
     # libuuid 2.41.4-r0 in Alpine base image; fixed in 2.41.6-r0/r1, not yet available in this image line.
     # Accepted: libuuid is not directly invoked by nginx or lua-resty-openidc in this deployment.
-
