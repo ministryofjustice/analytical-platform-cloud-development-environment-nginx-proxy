@@ -160,28 +160,3 @@ ignore:
   - vulnerability: CVE-2026-33630
     # c-ares 1.20.0-r0 in Alpine base image; fixed in 1.20.1-r0.
 
-  - vulnerability: CVE-2026-9079
-  - vulnerability: CVE-2026-10536
-  - vulnerability: CVE-2026-11856
-  - vulnerability: CVE-2026-8925
-  - vulnerability: CVE-2026-8924
-  - vulnerability: CVE-2026-8927
-  - vulnerability: CVE-2026-8926
-  - vulnerability: CVE-2026-11564
-  - vulnerability: CVE-2026-11352
-  - vulnerability: CVE-2026-11586
-  - vulnerability: CVE-2026-9546
-  - vulnerability: CVE-2026-12064
-  - vulnerability: CVE-2026-8932
-  - vulnerability: CVE-2026-9547
-  - vulnerability: CVE-2026-8286
-  - vulnerability: CVE-2026-9080
-  - vulnerability: CVE-2026-9545
-    # curl/libcurl 8.19.0-r0 in Alpine base image; fixed in 8.22.0-r0, not yet available in this image line.
-    # Accepted: curl/libcurl is not directly invoked by nginx or lua-resty-openidc in this deployment.
-
-  - vulnerability: CVE-2026-76642
-  - vulnerability: CVE-2026-78408
-  - vulnerability: CVE-2026-78410
-    # libuuid 2.41.4-r0 in Alpine base image; fixed in 2.41.6-r0/r1, not yet available in this image line.
-    # Accepted: libuuid is not directly invoked by nginx or lua-resty-openidc in this deployment.
