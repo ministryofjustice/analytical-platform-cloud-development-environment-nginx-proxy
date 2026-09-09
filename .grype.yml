@@ -160,3 +160,9 @@ ignore:
   - vulnerability: CVE-2026-33630
     # c-ares 1.20.0-r0 in Alpine base image; fixed in 1.20.1-r0.
 
+  - vulnerability: CVE-2026-76642
+  - vulnerability: CVE-2026-78408
+  - vulnerability: CVE-2026-78410
+    # libuuid 2.41.4-r0 in Alpine base image; fixed in 2.41.6-r0/r1, not yet available in this image line.
+    # Accepted: libuuid is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
