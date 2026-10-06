@@ -188,4 +188,3 @@ ignore:
   - vulnerability: CVE-2026-72897
     package:
       location: "/usr/local/openresty/openssl3/**"
-
