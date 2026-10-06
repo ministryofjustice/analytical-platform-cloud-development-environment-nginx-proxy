@@ -165,3 +165,27 @@ ignore:
   - vulnerability: CVE-2026-78410
     # libuuid 2.41.4-r0 in Alpine base image; fixed in 2.41.6-r0/r1, not yet available in this image line.
     # Accepted: libuuid is not directly invoked by nginx or lua-resty-openidc in this deployment.
+
+  # ============================================================================
+  # OpenSSL 3.5.6 compiled into OpenResty (/usr/local/openresty/openssl3)
+  # This is OpenResty's own source-built OpenSSL, not the Alpine libssl3 package,
+  # so `apk upgrade` cannot patch it. Fixed upstream in OpenSSL 3.5.8, but no
+  # OpenResty 1.29.2.5-x-alpine-fat image ships a patched bundled OpenSSL yet.
+  # Re-check on the next OpenResty base image bump.
+  # ============================================================================
+  - vulnerability: CVE-2026-54873
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+
+  - vulnerability: CVE-2026-84782
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+
+  - vulnerability: CVE-2026-84784
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+
+  - vulnerability: CVE-2026-72897
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+
