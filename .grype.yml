@@ -5,9 +5,15 @@
 ignore:
   # ============================================================================
   # nginx CVEs (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
-  # Fixed in nginx 1.29.7 / 1.30.1+ / 1.30.3+ depending on CVE.
+  # Fixed in nginx 1.29.7 / 1.30.1+ / 1.30.3+ / 1.30.6 depending on CVE.
   # No OpenResty alpine-fat image with a patched nginx on the 1.29.2.x track is available.
   # ============================================================================
+
+  - vulnerability: CVE-2026-15176
+    # Fixed in nginx 1.30.6. No OpenResty alpine-fat image is available with a patched nginx on the 1.29.2.x track.
+
+  - vulnerability: CVE-2026-97629
+    # Fixed in nginx 1.30.6. No OpenResty alpine-fat image is available with a patched nginx on the 1.29.2.x track.
 
   - vulnerability: CVE-2026-42945
     # Fixed in nginx 1.30.1/1.31.0+, but no OpenResty alpine-fat image is available with a patched nginx on the 1.29.2.x track.
@@ -139,7 +145,7 @@ ignore:
 
   - vulnerability: CVE-2026-63073
     # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
-    # Fix not yet available on the OpenResty
+    # Fix not yet available on the OpenResty 1.29.2.5-1-alpine-fat image line.
 
   # ============================================================================
   # Alpine package CVEs (libexpat in OpenResty 1.29.2.5-1-alpine-fat base image)
@@ -150,8 +156,10 @@ ignore:
 
   - vulnerability: CVE-2026-76641
     # libexpat 2.7.5-r0 in Alpine base image; fixed in 2.8.4-r0.
+
   - vulnerability: CVE-2026-75803
     # libcrypto3/libssl3 3.5.6-r0 in Alpine base image; fixed in 3.5.8-r0.
+
   # ============================================================================
   # Alpine package CVEs (c-ares in OpenResty 1.29.2.5-1-alpine-fat base image)
   # Fixed version exists in Alpine repos but may not yet be available in the
