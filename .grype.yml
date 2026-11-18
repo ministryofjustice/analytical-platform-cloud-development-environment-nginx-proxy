@@ -46,12 +46,8 @@ ignore:
   - vulnerability: CVE-2026-34181
     # Not exploitable: nginx does not process PKCS#12 files at runtime.
   # ============================================================================
-  # Alpine package CVEs (libxml2, libexpat in OpenResty 1.29.2.5-1-alpine-fat base image)
-  # Fixed versions exist in Alpine repos but are not yet available in the base image layer.
-  # ============================================================================
-  - vulnerability: CVE-2026-6732
-    # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
-    # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
+  # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
+  # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
   # ============================================================================
   # nginx core CVEs (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
   # Fixed in nginx 1.30.4 / 1.31.3. No OpenResty release bundles a patched
@@ -113,5 +109,22 @@ ignore:
     package:
       location: "/usr/local/openresty/openssl3/**"
   - vulnerability: CVE-2026-72897
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  # OpenSSL 3.5.6 bundled in OpenResty: findings fixed upstream in OpenSSL 3.5.10.
+  # As above, apk cannot patch this copy. Remove these ignores once the base
+  # image ships a bundled OpenSSL >= 3.5.10.
+  - vulnerability: CVE-2026-95691
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-95692
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-88823
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-107496
+    # Grype reports the fix as 1.0.2zt, which is the legacy 1.0.2 branch and does
+    # not apply to 3.5.x. Confirm the 3.5.x fix version against the OpenSSL advisory.
     package:
       location: "/usr/local/openresty/openssl3/**"
