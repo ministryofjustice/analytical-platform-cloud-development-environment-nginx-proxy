@@ -46,8 +46,8 @@ ignore:
   - vulnerability: CVE-2026-34181
     # Not exploitable: nginx does not process PKCS#12 files at runtime.
   # ============================================================================
-    # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
-    # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
+  # libxml2 2.13.9-r0 in Alpine base image; fixed in 2.13.9-r1.
+  # Accepted: libxml2 is not directly invoked by nginx or lua-resty-openidc in this deployment.
   # ============================================================================
   # nginx core CVEs (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
   # Fixed in nginx 1.30.4 / 1.31.3. No OpenResty release bundles a patched
