@@ -128,3 +128,21 @@ ignore:
     # not apply to 3.5.x. Confirm the 3.5.x fix version against the OpenSSL advisory.
     package:
       location: "/usr/local/openresty/openssl3/**"
+  # ============================================================================
+  # nginx November 2026 security release (nginx 1.29.2 bundled in OpenResty 1.29.2.5)
+  # Fixed upstream in nginx 1.30.7 / 1.31.9 (released 2026-11-18). No OpenResty
+  # release bundles either yet: latest is 1.31.8.1 -> nginx 1.31.8, still vulnerable.
+  # Re-check when OpenResty ships a release based on nginx >= 1.31.9.
+  # ============================================================================
+  - vulnerability: CVE-2026-123007
+    # Not exploitable: HTTP/2 flow-control bug; HTTP/2 is not enabled (no `http2 on` / `listen ... http2`).
+  - vulnerability: CVE-2026-123633
+    # Not exploitable: HTTP/2 use-after-free; HTTP/2 is not enabled.
+  - vulnerability: CVE-2026-123634
+    # Not exploitable: resolver use-after-free requires a variable-based proxy_pass plus a
+    # mirror/SSI subrequest resolving the same name; neither mirror nor SSI is used and
+    # proxy_pass targets are fixed.
+  - vulnerability: CVE-2026-121810
+    # Not exploitable: HTTP/3 use-after-free; QUIC is not configured (no listen ... quic).
+  - vulnerability: CVE-2026-113425
+    # Not exploitable: mail proxy use-after-free; this is an HTTP proxy, the mail module is not used.
