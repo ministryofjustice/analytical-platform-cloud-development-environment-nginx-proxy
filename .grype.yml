@@ -123,8 +123,27 @@ ignore:
   - vulnerability: CVE-2026-88823
     package:
       location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-124709
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-107494
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-121482
+    package:
+      location: "/usr/local/openresty/openssl3/**"
   - vulnerability: CVE-2026-107496
     # Grype reports the fix as 1.0.2zt, which is the legacy 1.0.2 branch and does
+    # not apply to 3.5.x. Confirm the 3.5.x fix version against the OpenSSL advisory.
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-107493
+    # Grype reports the fix as 1.0.2zt, which is the legacy 1.0.2 branch and does
+    # not apply to 3.5.x. Confirm the 3.5.x fix version against the OpenSSL advisory.
+    package:
+      location: "/usr/local/openresty/openssl3/**"
+  - vulnerability: CVE-2026-84786
+    # Grype reports the fix as 1.1.1zk, which is the legacy 1.1.1 branch and does
     # not apply to 3.5.x. Confirm the 3.5.x fix version against the OpenSSL advisory.
     package:
       location: "/usr/local/openresty/openssl3/**"
